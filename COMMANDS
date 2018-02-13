@@ -13,9 +13,11 @@ for i in $(cat data/images); do
 done > data/colours
 
 # convert colour data to similarity
-python make_similarity.py --file <(paste data/images data/colours) --type colour --nbest 3
+python make_similarity.py --file <(paste data/images data/colours) --type colour --nbest 3 > similarities/colour
 
 # convert dates to similarity
-python make_similarity.py --file data/images --type date --nbest 2 > next
-python make_similarity.py --file data/images --type dateprev --nbest 2 > prev
+python make_similarity.py --file data/images --type date --nbest 2 > similarities/datenext
+python make_similarity.py --file data/images --type dateprev --nbest 2 > similarities/dateprev
 
+cat similarities/* > similarities/all
+# add header

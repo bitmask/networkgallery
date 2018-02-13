@@ -56,14 +56,14 @@ def parse_correctly(attribtype, inputfile):
     func = case.get(attribtype, lambda: "nothing")
     return func(inputfile)
 
-def print_similarities(similar, nbest):
+def print_similarities(similar, nbest, attribtype):
     for f1 in similar.keys():
         seen = 0
         for t in sorted(similar[f1].items(), key=operator.itemgetter(1)):
             f2, dist = t
             if f1==f2: continue
             if seen >= int(nbest): break
-            print f1 + "\t" + f2 + "\t" + str(similar[f1][f2])
+            print f1 + "\t" + f2 + "\t" + str(similar[f1][f2]) + "\t" + attribtype
             seen+=1
 
 
@@ -84,7 +84,7 @@ def main():
     args=parser.parse_args()
 
     similar = parse_correctly(args.attribtype, args.inputfile)
-    print_similarities(similar, args.nbest)
+    print_similarities(similar, args.nbest, args.attribtype)
 
 
 
