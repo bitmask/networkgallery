@@ -1,0 +1,21 @@
+# set up
+brew install imagemagick
+
+# get images
+ls -1 images/* > data/images
+
+# get location data
+#vi data/locations
+
+# get colour data
+for i in $(cat data/images); do
+ convert $i -resize 1x1 txt:-|tail -n 1|awk '{print $4}'|cut -c 6-|sed 's/.$//'
+done > data/colours
+
+# convert colour data to similarity
+python make_similarity.py --file <(paste data/images data/colours) --type colour --nbest 3
+
+# convert dates to similarity
+python make_similarity.py --file data/images --type date --nbest 2 > next
+python make_similarity.py --file data/images --type dateprev --nbest 2 > prev
+
