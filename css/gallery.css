@@ -14,9 +14,14 @@ html, body {
 }
 
 #center {
+    position: fixed;
 }
 
 #picture {
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0px;
+    left: 0px;
 }
 
 #defs {
